@@ -6,10 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="styles.css" rel="stylesheet">
-    <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="overlay">
+
+    </div>
     <h1>Shek`s Library</h1>
-    <div class="container"></div>
+    <div class="books-container">
+        <div class="entry" id="test">
+            <img src="" class="cover-image">
+            <div class="info">
+                <div class="title-author">
+                    <p class="title">The Revenant</p>
+                    <p class="author">Charles Darwin</p>
+                </div>
+                <input type="range" name="range" id="range">
+                <div class="info-bottom">
+                    <!-- <p class="rangeValue"></p> -->
+                    <p class="pages">30/<span class="total">s</span></p>
+                    <!-- <input type="checkbox" name="read" id="read"> -->
+                    <p class="edit">Edit</p>
+                    <p class="delete">Delete</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <button class="fullScreen">Full Screen</button>
+
+    <div>
+       
+        <button class="new-book-toggle">
+            New Book
+        </button>
+
+        <div class="add-pop-up">
+            <form>
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title"  id="title">
+                </div>
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" name="author"  id="author">
+                </div>
+                <div>
+                    <label for="pages">Pages:</label>
+                    <input type="number" name="pages" max=9999 id="pages">
+                </div>
+                <div>
+                    <label for="pages-read">Pages Read:</label>
+                    <input type="number" name="pages_read" max="9999" id="pages-read">
+                </div>
+                <div>
+                    <input type="checkbox" name="completed"  id="completed">
+                    <label for="completed">Read</label>
+                </div>               
+            </form>
+            <button class="submit">Add</button>
+        </div>
+
+    </div>
+    <script src="script.js" ></script>
 </body>
 </html>
