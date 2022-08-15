@@ -3,6 +3,11 @@ const addBookButton = document.querySelector(".submit");
 const newBookToggle = document.querySelector(".new-book-toggle");
 const addPopUp = document.querySelector(".add-pop-up");
 const container = document.querySelector(".books-container");
+const closeBtn = document.querySelector(".close");
+
+closeBtn.addEventListener("click", () => {
+  addPopUp.classList.remove("display");
+});
 
 newBookToggle.addEventListener("click", () => {
   addPopUp.classList.toggle("display");
@@ -44,17 +49,30 @@ let bookObject = [
 ];
 
 addBookButton.addEventListener("click", () => {
+  render();
+});
+
+// container.addEventListener("click", () => {
+//   addPopUp.classList.remove("display");
+//   alert("Bodu");
+// });
+
+document.querySelector(".fullScreen").addEventListener("click", () => {
+  document.documentElement.requestFullscreen();
+});
+
+function render() {
   booksContainer.innerHTML = "";
+
+  let newTitleElement = document.querySelector("#title");
+  let newAuthorElement = document.querySelector("#author");
+  let newPagesElement = document.querySelector("#pages");
+  let newPagesReadElement = document.querySelector("#pages-read");
 
   let newTitle = document.querySelector("#title").value;
   let newAuthor = document.querySelector("#author").value;
   let newPages = document.querySelector("#pages").value;
   let newPagesRead = document.querySelector("#pages-read").value;
-
-  console.log(newTitle, "titl");
-  console.log(newAuthor, "auth");
-  console.log(newPages, "pagees");
-  console.log("Pages Read: ", newPagesRead);
 
   let newBook = new Book(newTitle, newAuthor, newPages, newPagesRead);
 
@@ -73,21 +91,24 @@ addBookButton.addEventListener("click", () => {
     const author = document.createElement("p");
     author.classList.add("author");
 
-    // const readPages = document.createElement("span");
-    // readPages.classList.add("total");
-    // readPages.innerText = bookObject[i].pages;
-
     const pages = document.createElement("p");
     pages.classList.add("pages");
 
     const del = document.createElement("img");
     del.src = "./images/delete-outline.png";
+    del.addEventListener("click", (e) => {
+      bookObject.splice(i, 1);
+      reRender();
+    });
 
     const edit = document.createElement("img");
     edit.src = "./images/book-edit-outline.png";
-
-    edit.addEventListener("click", () => {
+    edit.addEventListener("click", (e) => {
       addPopUp.classList.add("display");
+      newTitleElement.value = bookObject[i].title;
+      newAuthorElement.value = bookObject[i].author;
+      newPagesElement.value = bookObject[i].pages;
+      newPagesReadElement.value = bookObject[i].pagesRead;
     });
 
     edit.classList.add("edit");
@@ -114,37 +135,87 @@ addBookButton.addEventListener("click", () => {
     info.classList.add("info");
     info.append(titleAuthor, infoBottom);
 
-    //   finished.innerText = bookObject[i].finished;
+    entry.append(image, info);
+    booksContainer.appendChild(entry);
+  }
+
+  addPopUp.classList.remove("display");
+}
+
+function reRender() {
+  booksContainer.innerHTML = "";
+
+  let newTitle = document.querySelector("#title").value;
+  let newAuthor = document.querySelector("#author").value;
+  let newPages = document.querySelector("#pages").value;
+  let newPagesRead = document.querySelector("#pages-read").value;
+
+  console.log(newTitle, "titl");
+  console.log(newAuthor, "auth");
+  console.log(newPages, "pagees");
+  console.log("Pages Read: ", newPagesRead);
+
+  for (let i = 0; i < bookObject.length; i++) {
+    const entry = document.createElement("div");
+    entry.classList.add("entry");
+    entry.dataset.index = i;
+
+    const title = document.createElement("p");
+    title.classList.add("title");
+
+    const author = document.createElement("p");
+    author.classList.add("author");
+
+    const pages = document.createElement("p");
+    pages.classList.add("pages");
+
+    const del = document.createElement("img");
+    del.src = "./images/delete-outline.png";
+
+    del.addEventListener("click", (e) => {
+      bookObject.splice(i, 1);
+      reRender();
+    });
+
+    const edit = document.createElement("img");
+    edit.src = "./images/book-edit-outline.png";
+    edit.addEventListener("click", (e) => {
+      addPopUp.classList.add("display");
+      newTitleElement.value = bookObject[i].title;
+      newAuthorElement.value = bookObject[i].author;
+      newPagesElement.value = bookObject[i].pages;
+      newPagesReadElement.value = bookObject[i].pagesRead;
+    });
+
+    edit.classList.add("edit");
+
+    title.innerText = bookObject[i].title;
+    author.innerText = bookObject[i].author;
+    pages.innerText = bookObject[i].pagesRead + "/" + bookObject[i].pages;
+
+    const image = document.createElement("img");
+    image.classList.add("cover-image");
+
+    const infoBottom = document.createElement("div");
+    infoBottom.classList.add("info-bottom");
+    infoBottom.append(pages, del, edit);
+
+    const titleAuthor = document.createElement("div");
+    titleAuthor.classList.add("title-author");
+    titleAuthor.append(title, author);
+
+    let input = document.createElement("input");
+    input.type = "checkbox";
+
+    const info = document.createElement("div");
+    info.classList.add("info");
+    info.append(titleAuthor, infoBottom);
 
     entry.append(image, info);
     booksContainer.appendChild(entry);
   }
 
   addPopUp.classList.remove("display");
-});
+}
 
-container.addEventListener("click", () => {
-  addPopUp.classList.remove("display");
-});
-// for (let i = 0; i <= 1; i++) {
-//   let entry = document.createElement("div");
-//   entry.classList.add("row");
-//   entry.dataset.index = i;
-
-//   let title = document.createElement("p");
-//   let author = document.createElement("p");
-//   let pages = document.createElement("p");
-//   //   let finished = document.createElement("p");
-
-//   title.innerText = bookObject[i].title;
-//   author.innerText = bookObject[i].author;
-//   pages.innerText = bookObject[i].pages;
-//   //   finished.innerText = bookObject[i].finished;
-
-//   entry.append(title, author, pages);
-//   document.body.appendChild(entry);
-// }
-
-document.querySelector(".fullScreen").addEventListener("click", () => {
-  document.documentElement.requestFullscreen();
-});
+function edit() {}

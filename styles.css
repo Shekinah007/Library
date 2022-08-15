@@ -83,7 +83,7 @@ body {
     flex-direction: column;
     gap: 5px;
     background: rgb(15, 25, 37);
-    height: 100vh;
+    /* min-height: 100vh; */
     width: 100vw;
 }
 
@@ -112,7 +112,7 @@ body {
     box-sizing: content-box;
 
 
-    opacity: 1;
+    opacity: 0;
     overflow: hidden;
     width: 0;
     height: 0px;
@@ -121,7 +121,7 @@ body {
 
 .display {
     transition: 0.5s;
-    /* opacity: 1; */
+    opacity: 1;
     height: 400px; 
     width: min(80vw, 500px);
 
@@ -188,11 +188,29 @@ input {
 
 .new-book-toggle {
     position: fixed;
-    padding: 20px;
+    /* padding: 20px; */
     bottom: 10vh;
-    right: 10vh;
+    right: 10vw;
+    /* background: darkcyan; */
+    border-radius: 50%;
 }
+
+.new-book-toggle img {
+    height: 40px;
+    transition: 0.3s;
+}
+.new-book-toggle img:hover {
+    height: 50px;
+    transition: 0.3s;
+}
+
 
 .submit {
     /* width : 200px; */
+}
+
+.close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }
